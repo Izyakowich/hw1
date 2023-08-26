@@ -6,6 +6,8 @@ __all__ = (
 )
 
 
+
+
 class Node:
     def __init__(self, value: Any):
         self.value = value
