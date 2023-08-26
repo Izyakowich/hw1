@@ -26,9 +26,28 @@ class Node:
 class Graph:
     def __init__(self, root: Node):
         self._root = root
+        self._visited = set()
+        self._result = []
+
 
     def dfs(self) -> list[Node]:
-        raise NotImplementedError
+        def dfs_helper(node):
+            self._visited.add(node)
+            self._result.append(node)
+            for neighbor in node.outbound:
+                if neighbor not in self._visited:
+                    dfs_helper(neighbor)
+        dfs_helper(self._root)
+        return self._result
+
+
 
     def bfs(self) -> list[Node]:
-        raise NotImplementedError
+        queue = [self._root]
+        while queue:
+            node = queue.pop(0)
+            if node not in self._visited:
+                self._visited.add(node)
+                self._result.append(node)
+                queue.extend(node.outbound)
+        return self._result
